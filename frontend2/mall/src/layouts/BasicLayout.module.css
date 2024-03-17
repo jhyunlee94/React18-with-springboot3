@@ -1,0 +1,28 @@
+.header {
+  padding: 20px;
+  background-color: aquamarine;
+  margin-bottom: 20px;
+}
+.header h1 {
+  color: black;
+}
+.mainContainer {
+  width: 100dvw;
+  display: flex;
+  /* flex-direction: column; */
+  background: #fff;
+}
+.main {
+  background: skyblue;
+  padding: 50px;
+  color: black;
+  flex: 1;
+}
+.aside {
+  background-color: aquamarine;
+  padding: 50px;
+  flex: 1;
+}
+.aside h1 {
+  color: black;
+}

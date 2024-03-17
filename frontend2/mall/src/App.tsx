@@ -1,7 +1,9 @@
-import style from './App.module.css';
+import { RouterProvider } from 'react-router-dom';
+
+import root from '@/router/root';
 
 function App() {
-  return <h1 className={style.test}>Hello world!</h1>;
+  return <RouterProvider router={root} />;
 }
 
 export default App;

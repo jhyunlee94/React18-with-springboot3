@@ -1,0 +1,34 @@
+.navContainer {
+  background-color: blue;
+  display: flex;
+  height: 70px;
+}
+.menuContainer {
+  width: 100dvw;
+  display: flex;
+}
+.normalButton {
+  display: flex;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.menuContainer ul {
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  display: flex;
+}
+.menuContainer ul li {
+  margin-left: 20px;
+  width: 200px;
+}
+.loginContainer {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+}
+.login {
+}
