@@ -1,7 +1,17 @@
 import BasicLayout from '@/layouts/BasicLayout';
-import { Outlet } from 'react-router-dom';
+import { useCallback } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function IndexPage() {
+  const navigate = useNavigate();
+
+  const handleClickList = useCallback(() => {
+    navigate({ pathname: 'list' });
+  }, []);
+
+  const handleClickAdd = useCallback(() => {
+    navigate({ pathname: 'add' });
+  }, []);
   return (
     <BasicLayout>
       <div
@@ -22,7 +32,9 @@ export default function IndexPage() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            cursor: 'pointer',
           }}
+          onClick={handleClickList}
         >
           List
         </div>
@@ -36,7 +48,9 @@ export default function IndexPage() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            cursor: 'pointer',
           }}
+          onClick={handleClickAdd}
         >
           ADD
         </div>
