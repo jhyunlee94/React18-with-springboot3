@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.mallserver.domain.Todo;
+import com.example.mallserver.repository.search.TodoSearch;
 
-
-public interface TodoRepository extends JpaRepository<Todo,Long> {
+public interface TodoRepository extends JpaRepository<Todo,Long>, TodoSearch {
 }
