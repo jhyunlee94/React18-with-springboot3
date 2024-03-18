@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Suspense, lazy } from 'react';
+import todoRouter from './todoRouter';
 
 const Loading = <div style={{ color: 'red' }}>Loading...</div>;
 const Main = lazy(() => import('@/pages/MainPage'));
 const About = lazy(() => import('@/pages/AboutPage'));
 const TodoIndex = lazy(() => import('@/pages/todo/IndexPage'));
-const TodoList = lazy(() => import('@/pages/todo/ListPage'));
 
 const root = createBrowserRouter([
   {
@@ -32,16 +32,7 @@ const root = createBrowserRouter([
         <TodoIndex />
       </Suspense>
     ),
-    children: [
-      {
-        path: 'list', // todo/list
-        element: (
-          <Suspense fallback={Loading}>
-            <TodoList />
-          </Suspense>
-        ),
-      },
-    ],
+    children: todoRouter(),
   },
 ]);
 
