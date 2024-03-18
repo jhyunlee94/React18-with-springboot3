@@ -9,6 +9,16 @@ import com.example.mallserver.dto.TodoDTO;
 public interface TodoService {
 	// AOP 적용을할때를 위해 인터페이스 타입으로 빼주는게 좋음
 	TodoDTO get(Long tno);
+
+	// 등록
+	Long register(TodoDTO todoDTO);
+
+	// 수정
+	void modify(TodoDTO todoDTO);
+
+	// 삭제
+	void remove(Long tno);
+
 	default TodoDTO entityToDTO(Todo todo) {
 
 		return TodoDTO.builder()
