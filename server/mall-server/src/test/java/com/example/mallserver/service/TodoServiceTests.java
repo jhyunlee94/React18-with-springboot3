@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.mallserver.dto.PageRequestDTO;
 import com.example.mallserver.dto.TodoDTO;
 
 import lombok.extern.log4j.Log4j2;
@@ -34,5 +35,12 @@ public class TodoServiceTests {
 			.build();
 
 		log.info(todoService.register(todoDTO));
+	}
+
+	@Test
+	public void testGetList() {
+		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(11).build();
+
+		log.info(todoService.getList(pageRequestDTO));
 	}
 }

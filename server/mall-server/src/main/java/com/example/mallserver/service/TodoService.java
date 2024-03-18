@@ -3,6 +3,8 @@ package com.example.mallserver.service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mallserver.domain.Todo;
+import com.example.mallserver.dto.PageRequestDTO;
+import com.example.mallserver.dto.PageResponseDTO;
 import com.example.mallserver.dto.TodoDTO;
 
 @Transactional
@@ -18,6 +20,8 @@ public interface TodoService {
 
 	// 삭제
 	void remove(Long tno);
+
+	PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO);
 
 	default TodoDTO entityToDTO(Todo todo) {
 
