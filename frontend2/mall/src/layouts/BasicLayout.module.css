@@ -21,7 +21,7 @@
 .aside {
   background-color: aquamarine;
   padding: 50px;
-  flex: 1;
+  /* flex: 1; */
 }
 .aside h1 {
   color: black;

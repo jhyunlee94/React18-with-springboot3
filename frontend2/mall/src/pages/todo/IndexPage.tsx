@@ -14,7 +14,7 @@ export default function IndexPage() {
       >
         <div
           style={{
-            fontSize: '36px',
+            fontSize: '24px',
             margin: '10px',
             padding: '20px',
             fontWeight: 'bold',
@@ -28,7 +28,7 @@ export default function IndexPage() {
         </div>
         <div
           style={{
-            fontSize: '36px',
+            fontSize: '24px',
             margin: '10px',
             padding: '20px',
             fontWeight: 'bold',
