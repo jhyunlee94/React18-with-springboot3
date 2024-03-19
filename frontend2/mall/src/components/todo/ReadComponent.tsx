@@ -1,4 +1,5 @@
 import { getOne } from '@/api/TodoApi';
+import useCustomMove from '@/hooks/useCustomMove';
 import { useEffect, useState } from 'react';
 
 const initState = {
@@ -10,6 +11,8 @@ const initState = {
 };
 export default function ReadComponent({ tno }: any) {
   const [todo, setTodo] = useState(initState);
+
+  const { moveToList } = useCustomMove();
 
   useEffect(() => {
     getOne(tno).then((data) => {
@@ -31,6 +34,24 @@ export default function ReadComponent({ tno }: any) {
       {makeDive('Title', todo.title)}
       {makeDive('Due Date', todo.dueDate)}
       {makeDive('Complete,', todo.complete ? 'Completed' : 'Not Yet')}
+
+      <div style={{ display: 'flex', justifyContent: 'end', padding: '10px' }}>
+        <button
+          type="button"
+          style={{
+            borderRadius: '50%',
+            padding: '10px',
+            fontSize: '15px',
+
+            color: 'white',
+            backgroundColor: 'blue',
+            border: 'none',
+          }}
+          onClick={() => moveToList()}
+        >
+          List
+        </button>
+      </div>
     </div>
   );
 }
