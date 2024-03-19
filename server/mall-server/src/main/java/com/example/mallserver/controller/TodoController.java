@@ -1,7 +1,11 @@
 package com.example.mallserver.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,4 +46,14 @@ public class TodoController {
 
 		return todoService.getList(pageRequestDTO);
 	}
+
+	@PostMapping("/") // Long을 반환하기에 json을 위해서 Map으로 만들게요
+	public Map<String, Long> register(
+		@RequestBody TodoDTO dto
+	) {
+		log.info("todoDTO: " + dto);
+		Long tno = todoService.register(dto); // return type Long
+		return Map.of("TNO", tno);
+	}
+
 }
