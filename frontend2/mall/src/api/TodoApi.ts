@@ -6,6 +6,7 @@ const prefix = `${API_SERVER_HOST}/api/todo`;
 
 export const getOne = async (tno: any) => {
   const res = await axios.get(`${prefix}/${tno}`);
+  console.log('res', res);
   return res.data;
 };
 

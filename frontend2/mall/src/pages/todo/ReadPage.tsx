@@ -1,3 +1,4 @@
+import ReadComponent from '@components/todo/ReadComponent';
 import { useCallback } from 'react';
 import {
   createSearchParams,
@@ -40,17 +41,20 @@ export default function ReadPage() {
     <div
       style={{
         fontSize: '14px',
+        width: '100%',
+        marginTop: '10px',
       }}
     >
       Todo Read Page {tno}
-      <div>
+      {/* <div>
         <button type="button" onClick={() => moveToModify(tno)}>
           Test Modify
         </button>
         <button type="button" onClick={moveToList}>
           Test List
         </button>
-      </div>
+      </div> */}
+      <ReadComponent tno={tno} />
     </div>
   );
 }
