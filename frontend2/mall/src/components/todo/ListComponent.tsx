@@ -17,7 +17,7 @@ const initState = {
 };
 
 export default function ListComponent() {
-  const { page, size, moveToList, refresh } = useCustomMove();
+  const { page, size, moveToList, refresh, moveToRead } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ export default function ListComponent() {
               borderRadius: '50px',
               border: '1px solid black',
             }}
+            onClick={() => moveToRead(todo.tno)}
           >
             <div style={{ display: 'flex' }}>
               <div

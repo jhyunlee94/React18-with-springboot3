@@ -47,7 +47,7 @@ export default function ReadComponent({ tno }: any) {
             backgroundColor: 'blue',
             border: 'none',
           }}
-          onClick={moveToList}
+          onClick={() => moveToList()}
         >
           List
         </button>

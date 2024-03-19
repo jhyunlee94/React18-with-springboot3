@@ -23,3 +23,12 @@ export const getList = async (pageParam: any) => {
 
   return res.data;
 };
+
+export const postAdd = async (todoObj: any) => {
+  // JSON.stringify(obj) => JSON 문자열
+  const res = await axios.post(`${prefix}/`, {
+    todoObj,
+  });
+
+  return res.data;
+};

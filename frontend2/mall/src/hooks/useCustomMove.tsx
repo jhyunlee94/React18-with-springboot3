@@ -26,7 +26,7 @@ const useCustomMove = () => {
 
   const queryDefault = createSearchParams({ page, size }).toString();
 
-  const moveToList = (pageParam: any) => {
+  const moveToList = (pageParam?: any) => {
     let queryStr = '';
 
     if (pageParam) {
@@ -44,11 +44,15 @@ const useCustomMove = () => {
     navigate({ pathname: '../list', search: queryStr });
   };
 
-  const moveToModify = (tno: any) => {
-    navigate({ pathname: `../modify/${tno}`, search: queryDefault });
+  const moveToModify = (num: any) => {
+    navigate({ pathname: `../modify/${num}`, search: queryDefault });
   };
 
-  return { moveToList, moveToModify, page, size, refresh };
+  const moveToRead = (num: any) => {
+    navigate({ pathname: `../read/${num}`, search: queryDefault });
+  };
+
+  return { moveToList, moveToModify, page, size, refresh, moveToRead };
 };
 
 export default useCustomMove;

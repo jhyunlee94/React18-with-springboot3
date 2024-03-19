@@ -1,4 +1,4 @@
-export default function PageComponent({ serverData, movePage }) {
+export default function PageComponent({ serverData, movePage }: any) {
   // serverData.prev, pageNumList, next
   return (
     <div style={{ margin: '10px', display: 'flex', justifyContent: 'center' }}>
