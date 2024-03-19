@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   createSearchParams,
   useNavigate,
@@ -14,6 +14,7 @@ const getNum = (param: any, defaultValue: any) => {
 
 const useCustomMove = () => {
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(false);
 
   // 페이지 이동할때마다 써줘야하기에 싫어서 hooks 를 만드는중
   const [queryParams] = useSearchParams(); // 파라미터 값 쿼리스트링 처리
@@ -39,6 +40,7 @@ const useCustomMove = () => {
     } else {
       queryStr = queryDefault;
     }
+    setRefresh(!refresh);
     navigate({ pathname: '../list', search: queryStr });
   };
 
@@ -46,7 +48,7 @@ const useCustomMove = () => {
     navigate({ pathname: `../modify/${tno}`, search: queryDefault });
   };
 
-  return { moveToList, moveToModify, page, size };
+  return { moveToList, moveToModify, page, size, refresh };
 };
 
 export default useCustomMove;

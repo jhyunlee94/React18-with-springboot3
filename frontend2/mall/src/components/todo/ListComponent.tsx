@@ -1,4 +1,5 @@
 import { getList } from '@/api/TodoApi';
+import PageComponent from '@/common/PageComponent';
 import useCustomMove from '@/hooks/useCustomMove';
 import { useEffect, useState } from 'react';
 
@@ -16,7 +17,7 @@ const initState = {
 };
 
 export default function ListComponent() {
-  const { page, size } = useCustomMove();
+  const { page, size, moveToList, refresh } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function ListComponent() {
       console.log(data);
       setServerData(data);
     });
-  }, [page, size]);
+  }, [page, size, refresh]);
 
   return (
     <div
@@ -90,6 +91,7 @@ export default function ListComponent() {
           </div>
         ))}
       </div>
+      <PageComponent serverData={serverData} movePage={moveToList} />
     </div>
   );
 }
