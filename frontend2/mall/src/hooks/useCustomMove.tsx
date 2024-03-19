@@ -42,7 +42,11 @@ const useCustomMove = () => {
     navigate({ pathname: '../list', search: queryStr });
   };
 
-  return { moveToList };
+  const moveToModify = (tno: any) => {
+    navigate({ pathname: `../modify/${tno}`, search: queryDefault });
+  };
+
+  return { moveToList, moveToModify, page, size };
 };
 
 export default useCustomMove;

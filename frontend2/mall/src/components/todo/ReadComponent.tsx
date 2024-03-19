@@ -12,7 +12,7 @@ const initState = {
 export default function ReadComponent({ tno }: any) {
   const [todo, setTodo] = useState(initState);
 
-  const { moveToList } = useCustomMove();
+  const { moveToList, moveToModify } = useCustomMove();
 
   useEffect(() => {
     getOne(tno).then((data) => {
@@ -47,9 +47,24 @@ export default function ReadComponent({ tno }: any) {
             backgroundColor: 'blue',
             border: 'none',
           }}
-          onClick={() => moveToList()}
+          onClick={moveToList}
         >
           List
+        </button>
+        <button
+          type="button"
+          style={{
+            borderRadius: '50%',
+            padding: '10px',
+            fontSize: '15px',
+
+            color: 'white',
+            backgroundColor: 'red',
+            border: 'none',
+          }}
+          onClick={() => moveToModify(todo.tno)}
+        >
+          Modify
         </button>
       </div>
     </div>
