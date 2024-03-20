@@ -3,10 +3,11 @@ package com.example.mallserver.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-@SuperBuilder // 나중에 상속을 쓸때 사용함
+@SuperBuilder
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,5 +20,4 @@ public class PageRequestDTO {
 
 	@Builder.Default
 	private int size = 10;
-
 }
