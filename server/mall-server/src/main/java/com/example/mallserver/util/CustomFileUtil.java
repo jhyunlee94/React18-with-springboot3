@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -51,7 +54,19 @@ public class CustomFileUtil {
 			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			Path savePath = Paths.get(uploadPath, savedName);
 			try {
-				Files.copy(file.getInputStream(), savePath); // 예외처리가 좀 필요함
+				Files.copy(file.getInputStream(), savePath); // 예외처리가 좀 필요함, 원본파일 업로드
+
+				// thumbnail 코드 추가
+				String contentType = file.getContentType(); // Mime type 나옴
+
+				// 이미지 파일이라면??
+				if (contentType != null || contentType.startsWith("image")) {
+					Path thumbnailPath = Paths.get(uploadPath, "s_" + savedName);
+					// 사이즈 조절
+					Thumbnails.of(savePath.toFile()).size(200,200).toFile(thumbnailPath.toFile());
+
+				}
+
 				uploadNames.add(savedName);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
