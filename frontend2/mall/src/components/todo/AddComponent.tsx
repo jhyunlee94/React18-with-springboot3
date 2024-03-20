@@ -1,3 +1,6 @@
+import { postAdd } from '@/api/TodoApi';
+import ResultModal from '@/common/ResultModal';
+import useCustomMove from '@/hooks/useCustomMove';
 import { ChangeEventHandler, useCallback, useState } from 'react';
 
 type MyObject = {
@@ -12,6 +15,9 @@ const initState: MyObject = {
 
 export default function AddComponent() {
   const [todo, setTodo] = useState({ ...initState });
+  const [result, setResult] = useState(null);
+
+  const { moveToList } = useCustomMove();
 
   const handleChangeTodo: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -25,9 +31,19 @@ export default function AddComponent() {
   );
 
   const handleClickAdd = () => {
-    console.log(todo);
+    console.log('todoObjzzz', todo);
+    postAdd(todo).then((result: any) => {
+      // data = {TNO: 104}
+      console.log('result', result);
+      setResult(result.TNO);
+      setTodo({ ...initState });
+    });
   };
 
+  const closeModal = () => {
+    setResult(null);
+    moveToList();
+  };
   return (
     <div
       style={{
@@ -171,6 +187,14 @@ export default function AddComponent() {
           </button>
         </div>
       </div>
+      {result && (
+        <ResultModal
+          title={'Add Result'}
+          content={`New ${result} Added`}
+          callbackFn={closeModal}
+        />
+      )}
+      {/* {result ? <ResultModal /> : <></>} */}
     </div>
   );
 }

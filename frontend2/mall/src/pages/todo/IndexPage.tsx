@@ -18,8 +18,6 @@ export default function IndexPage() {
         style={{
           width: '100%',
           display: 'flex',
-          margin: '20px',
-          padding: '20px',
         }}
       >
         <div

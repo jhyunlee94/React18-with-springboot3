@@ -26,9 +26,8 @@ export const getList = async (pageParam: any) => {
 
 export const postAdd = async (todoObj: any) => {
   // JSON.stringify(obj) => JSON 문자열
-  const res = await axios.post(`${prefix}/`, {
-    todoObj,
-  });
+  console.log('todoObj-axios', todoObj);
+  const res = await axios.post(`${prefix}/`, todoObj);
 
   return res.data;
 };
