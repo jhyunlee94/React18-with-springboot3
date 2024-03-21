@@ -30,23 +30,23 @@ public class ProductController {
 
 	private final ProductService productService;
 
-	@PostMapping("/")
-	public Map<String, String> register(ProductDTO productDTO) {
-		// 이게 json 데이터로 못받아요, 좀 골치아파져요
-		// url 인코디 멀티파트 폼 데이터를 받을거라
-		// 이렇게 처리를 할게요
-		log.info("register: " +productDTO);
-
-		// 파일 목록
-		List<MultipartFile> files = productDTO.getFiles();
-
-		List<String> uploadedFileNames = fileUtil.saveFiles(files);
-		productDTO.setUploadFileNames(uploadedFileNames);
-
-		log.info(uploadedFileNames);
-
-		return Map.of("RESULT", "SUCCESS");
-	}
+	// @PostMapping("/")
+	// public Map<String, String> register(ProductDTO productDTO) {
+	// 	// 이게 json 데이터로 못받아요, 좀 골치아파져요
+	// 	// url 인코디 멀티파트 폼 데이터를 받을거라
+	// 	// 이렇게 처리를 할게요
+	// 	log.info("register: " +productDTO);
+	//
+	// 	// 파일 목록
+	// 	List<MultipartFile> files = productDTO.getFiles();
+	//
+	// 	List<String> uploadedFileNames = fileUtil.saveFiles(files);
+	// 	productDTO.setUploadFileNames(uploadedFileNames);
+	//
+	// 	log.info(uploadedFileNames);
+	//
+	// 	return Map.of("RESULT", "SUCCESS");
+	// }
 
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(
@@ -59,5 +59,28 @@ public class ProductController {
 	public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
 
 		return productService.getList(pageRequestDTO);
+	}
+
+	@PostMapping("/")
+	public Map<String, Long> register(ProductDTO productDTO) {
+		// 파일 업로드가 이뤄줘야함
+		// 먼저 해줘야함
+		// 그래서
+		List<MultipartFile> files = productDTO.getFiles();
+		// 문자열 업로드 시켜줘야함
+		List<String> uploadFileNames = fileUtil.saveFiles(files); // 문자열 목록 만들어 줌
+		// 세팅해서 서비스에 주는겁니다.
+		productDTO.setUploadFileNames(uploadFileNames); // 디비에 저장하기위해서 만든 이름
+
+		log.info(uploadFileNames);
+
+		Long pno = productService.register(productDTO);
+
+		return Map.of("RESULT", pno );
+	}
+
+	@GetMapping("/{pno}")
+	public ProductDTO read(@PathVariable("pno") Long pno) {
+		return productService.get(pno);
 	}
 }

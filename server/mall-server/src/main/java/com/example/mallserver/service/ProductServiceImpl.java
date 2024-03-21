@@ -1,6 +1,7 @@
 package com.example.mallserver.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -77,6 +78,36 @@ public class ProductServiceImpl implements ProductService{
 
 		Long pno = productRepository.save(product).getPno();
 		return pno;
+	}
+
+	@Override
+	public ProductDTO get(Long pno) {
+		Optional<Product> result = productRepository.findById(pno);
+		Product product = result.orElseThrow();
+		ProductDTO productDTO = entityToDTO(product);
+
+		return productDTO;
+	}
+
+	private ProductDTO entityToDTO(Product product) {
+		ProductDTO productDTO = ProductDTO.builder()
+			.pno(product.getPno())
+			.pname(product.getPname())
+			.pdesc(product.getPdesc())
+			.price(product.getPrice())
+			.delFlag(product.isDelFlag())
+			.build();
+
+		List<ProductImage> imageList = product.getImageList();
+
+		if(imageList == null | imageList.size() == 0) {
+			return productDTO;
+		}
+
+		List<String> fileNameList = imageList.stream().map(productImage ->
+			productImage.getFileName()).toList();
+		productDTO.setUploadFileNames(fileNameList);
+		return productDTO;
 	}
 
 	private Product dtoToEntity(ProductDTO productDTO) {
