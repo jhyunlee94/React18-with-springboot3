@@ -31,11 +31,11 @@ public class PageResponseDTO<E> {
 	private int totalCount, prevPage, nextPage, totalPage, current;
 
 	@Builder(builderMethodName = "withAll")
-	public PageResponseDTO(List<E> dtoList, PageRequestDTO pageRequestDTO, long total) {
+	public PageResponseDTO(List<E> dtoList, PageRequestDTO pageRequestDTO, long totalCount) {
 		this.dtoList = dtoList;
 		this.pageRequestDTO = pageRequestDTO;
 		// 계산이 들어가야함
-		this.totalCount = (int) total; // 다운 캐스팅
+		this.totalCount = (int) totalCount; // 다운 캐스팅
 
 		// 끝페이지 end, 현재페이지 번호가 필요함
 		int end = (int)(Math.ceil(pageRequestDTO.getPage() / 10.0)) * 10;
