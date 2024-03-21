@@ -1,7 +1,6 @@
 package com.example.mallserver.dto;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,7 +19,7 @@ public class PageResponseDTO<E> {
 	// 그래야지만 구성이 가능해 보임
 
 	private List<E> dtoList;
-    private List<Integer> pageNumList;
+	private List<Integer> pageNumList;
 
 	// 검색조건, 현재페이지는 전부 pageRequestDTO 안에 있어요
 	private PageRequestDTO pageRequestDTO;
@@ -35,16 +34,16 @@ public class PageResponseDTO<E> {
 		this.dtoList = dtoList;
 		this.pageRequestDTO = pageRequestDTO;
 		// 계산이 들어가야함
-		this.totalCount = (int) totalCount; // 다운 캐스팅
+		this.totalCount = (int)totalCount; // 다운 캐스팅
 
 		// 끝페이지 end, 현재페이지 번호가 필요함
 		int end = (int)(Math.ceil(pageRequestDTO.getPage() / 10.0)) * 10;
 
 		// 시작값은 -9 한 값
-		int start = end -9;
+		int start = end - 9;
 
 		// 진짜 마지막 페이지
-		int last = (int)(Math.ceil(totalCount/(double)pageRequestDTO.getSize()));
+		int last = (int)(Math.ceil(totalCount / (double)pageRequestDTO.getSize()));
 
 		end = end > last ? last : end;
 
@@ -55,9 +54,9 @@ public class PageResponseDTO<E> {
 		this.next = totalCount > end * pageRequestDTO.getSize();
 
 		// 이때는 박싱같은거 쓰면 편하죠 -> int -> Integer 가 됨
-		this.pageNumList = IntStream.rangeClosed(start,end).boxed().collect(Collectors.toList());
+		this.pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
 
-		this.prevPage = prev ? start -1 : 0;
+		this.prevPage = prev ? start - 1 : 0;
 
 		this.nextPage = next ? end + 1 : 0;
 

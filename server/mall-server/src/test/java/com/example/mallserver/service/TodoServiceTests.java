@@ -15,7 +15,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class TodoServiceTests {
 
-
 	@Autowired
 	TodoService todoService;
 
@@ -31,7 +30,7 @@ public class TodoServiceTests {
 		TodoDTO todoDTO = TodoDTO.builder()
 			.title("Title")
 			.content("Content")
-			.dueDate(LocalDate.of(2023,12,31))
+			.dueDate(LocalDate.of(2023, 12, 31))
 			.build();
 
 		log.info(todoService.register(todoDTO));

@@ -28,16 +28,17 @@ public class TodoController {
 	private final TodoService todoService;
 
 	@GetMapping("/{tno}")
-	public TodoDTO get(@PathVariable("tno") Long tno){
+	public TodoDTO get(@PathVariable("tno") Long tno) {
 		// 여기에 responseEntity 쓰는 사람있는데 이거는
 		// advice 에서 빼주면 됩니다.
 		// 기본적으로 json 이니 그것만 생각해주세요
 		return todoService.get(tno);
 	}
+
 	/**
 	 * pathvariable
 	 * /api/todo/33  항상 동일한거
-	 *
+	 * <p>
 	 * querystring
 	 * /list?page=3 이건 매일 달라지는것
 	 */
@@ -75,4 +76,4 @@ public class TodoController {
 		todoService.remove(tno);
 		return Map.of("RESULT", "SUCCESS");
 	}
- }
+}

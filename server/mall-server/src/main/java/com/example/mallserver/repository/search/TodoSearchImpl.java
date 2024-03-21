@@ -19,9 +19,10 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class TodoSearchImpl extends QuerydslRepositorySupport implements TodoSearch {
 
-	public  TodoSearchImpl() {
+	public TodoSearchImpl() {
 		super(Todo.class);
 	}
+
 	@Override
 	public Page<Todo> search1(PageRequestDTO pageRequestDTO) {
 		// 부트에서 변경이 너무 많음
@@ -36,10 +37,10 @@ public class TodoSearchImpl extends QuerydslRepositorySupport implements TodoSea
 
 		// 스프링 3버전들어오면서 바뀐점
 		Pageable pageable = PageRequest.of(
-			pageRequestDTO.getPage() -1,
+			pageRequestDTO.getPage() - 1,
 			pageRequestDTO.getSize(),
 			Sort.by("tno").descending());
-		this.getQuerydsl().applyPagination(pageable,query);
+		this.getQuerydsl().applyPagination(pageable, query);
 
 		List<Todo> list = query.fetch(); // 목록 데이터 가져올때
 

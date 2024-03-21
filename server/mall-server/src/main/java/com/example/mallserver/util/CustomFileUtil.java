@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 
 import jakarta.annotation.PostConstruct;
@@ -35,7 +34,7 @@ public class CustomFileUtil {
 	private String uploadPath;
 
 	@PostConstruct // 생성자 대신에 많이 쓴다, 뭔가 초기화 시켜야할때
-	public void init(){
+	public void init() {
 		// 프로젝트 실행하면 폴더가 없으니까 만들어주는 용도로 사용
 		File tempFolder = new File(uploadPath);
 		if (!tempFolder.exists()) {
@@ -67,7 +66,7 @@ public class CustomFileUtil {
 				if (contentType != null || contentType.startsWith("image")) {
 					Path thumbnailPath = Paths.get(uploadPath, "s_" + savedName);
 					// 사이즈 조절
-					Thumbnails.of(savePath.toFile()).size(200,200).toFile(thumbnailPath.toFile());
+					Thumbnails.of(savePath.toFile()).size(200, 200).toFile(thumbnailPath.toFile());
 
 				}
 
@@ -80,11 +79,11 @@ public class CustomFileUtil {
 	}
 
 	public ResponseEntity<Resource> getFile(String fileName) {
-		Resource resource = new FileSystemResource(uploadPath+File.separator+fileName);
+		Resource resource = new FileSystemResource(uploadPath + File.separator + fileName);
 
 		if (!resource.isReadable()) {
 			// 잘못된거
-			resource = new FileSystemResource(uploadPath+File.separator+"default.png");
+			resource = new FileSystemResource(uploadPath + File.separator + "default.png");
 		}
 
 		// http 헤더가 중요
@@ -102,7 +101,7 @@ public class CustomFileUtil {
 
 	public void deleteFiles(List<String> fileNames) {
 		if (fileNames == null || fileNames.isEmpty()) {
-			return ;
+			return;
 		}
 
 		fileNames.forEach(fileName -> {
@@ -116,8 +115,8 @@ public class CustomFileUtil {
 
 			try {
 
-			Files.deleteIfExists(filePath);
-			Files.deleteIfExists(thumbnailPath);
+				Files.deleteIfExists(filePath);
+				Files.deleteIfExists(thumbnailPath);
 			} catch (IOException e) {
 				throw new RuntimeException(e.getMessage());
 			}

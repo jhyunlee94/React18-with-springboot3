@@ -40,8 +40,8 @@ public class ProductServiceTests {
 		// uuid 가 있어야 함
 		productDTO.setUploadFileNames(
 			List.of(
-				UUID.randomUUID()+"_"+"Test1.jpg",
-				UUID.randomUUID()+"_"+"Test2.jpg"
+				UUID.randomUUID() + "_" + "Test1.jpg",
+				UUID.randomUUID() + "_" + "Test2.jpg"
 			)
 		);
 		productService.register(productDTO);

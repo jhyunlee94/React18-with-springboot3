@@ -23,7 +23,6 @@ public class TodoRepositoryTests {
 	@Autowired
 	private TodoRepository todoRepository;
 
-
 	@Test
 	public void test1() {
 		Assertions.assertNotNull(todoRepository);
@@ -35,11 +34,11 @@ public class TodoRepositoryTests {
 	public void testInsert() {
 
 		for (int i = 0; i <= 100; i++) {
-		// given
+			// given
 			final Todo todo = Todo.builder()
 				.title("Title")
 				.content("Content")
-				.dueDate(LocalDate.of(2023,12,30))
+				.dueDate(LocalDate.of(2023, 12, 30))
 				.build();
 
 			// when

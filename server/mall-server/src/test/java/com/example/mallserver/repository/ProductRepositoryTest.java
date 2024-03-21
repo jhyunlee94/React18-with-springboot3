@@ -31,15 +31,15 @@ public class ProductRepositoryTest {
 
 		for (int i = 0; i < 10; i++) {
 
-		Product product = Product.builder()
-			.pname("Test")
-			.pdesc("Test Desc")
-			.price(1000)
-			.build();
+			Product product = Product.builder()
+				.pname("Test")
+				.pdesc("Test Desc")
+				.price(1000)
+				.build();
 
-		product.addImageString(UUID.randomUUID()+"_"+"IMAGE1.jpg");
-		product.addImageString(UUID.randomUUID()+"_"+"IMAGE2.jpg");
-		productRepository.save(product);
+			product.addImageString(UUID.randomUUID() + "_" + "IMAGE1.jpg");
+			product.addImageString(UUID.randomUUID() + "_" + "IMAGE2.jpg");
+			productRepository.save(product);
 		}
 	}
 
@@ -79,9 +79,9 @@ public class ProductRepositoryTest {
 		product.changePrice(3000);
 
 		product.clearList();
-		product.addImageString(UUID.randomUUID()+"_"+"PIMAGE1.jpg");
-		product.addImageString(UUID.randomUUID()+"_"+"PIMAGE2.jpg");
-		product.addImageString(UUID.randomUUID()+"_"+"PIMAGE2.jpg");
+		product.addImageString(UUID.randomUUID() + "_" + "PIMAGE1.jpg");
+		product.addImageString(UUID.randomUUID() + "_" + "PIMAGE2.jpg");
+		product.addImageString(UUID.randomUUID() + "_" + "PIMAGE2.jpg");
 		productRepository.save(product);
 	}
 

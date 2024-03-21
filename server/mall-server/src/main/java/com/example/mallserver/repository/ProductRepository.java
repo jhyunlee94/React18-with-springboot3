@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
 
 	@Modifying // update, delete 다 쓸수있음
 	@Query("UPDATE Product p SET p.delFlag = :delFlag WHERE p.pno = :pno")
-	void updateToDelete(@Param("pno") Long pno,@Param("delFlag") boolean flag);
+	void updateToDelete(@Param("pno") Long pno, @Param("delFlag") boolean flag);
 
 	// 엘리먼트 타입도 조인 가능, 그래서 Object
 	@Query("SELECT p, pi FROM Product p left join p.imageList pi WHERE pi.ord = 0 AND p.delFlag = false")

@@ -25,11 +25,13 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 	public ProductSearchImpl() {
 		super(Product.class);
 	}
+
 	@Override
 	public PageResponseDTO<ProductDTO> searchList(PageRequestDTO pageRequestDTO) {
 		log.info("-----------------searchList------------------");
 		// 조회, 조인할때 좀 다릅니다.
-		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() -1, pageRequestDTO.getSize(), Sort.by("pno").descending());
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+			Sort.by("pno").descending());
 
 		QProduct product = QProduct.product;
 		QProductImage productImage = QProductImage.productImage;

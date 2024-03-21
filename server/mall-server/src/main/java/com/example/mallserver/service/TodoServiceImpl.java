@@ -13,7 +13,6 @@ import com.example.mallserver.dto.PageResponseDTO;
 import com.example.mallserver.dto.TodoDTO;
 import com.example.mallserver.repository.TodoRepository;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -69,7 +68,7 @@ public class TodoServiceImpl implements TodoService {
 		// 가져온건 Todo List 인데 => TodoDTO List가 되어야합니다.
 		List<TodoDTO> dtoList = result
 			.get()
-			.map( todo -> entityToDTO(todo))
+			.map(todo -> entityToDTO(todo))
 			.collect(Collectors.toList());
 
 		PageResponseDTO<TodoDTO> responseDTO = PageResponseDTO.<TodoDTO>withAll()
