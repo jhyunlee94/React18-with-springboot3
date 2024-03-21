@@ -9,4 +9,6 @@ import com.example.mallserver.dto.ProductDTO;
 @Transactional
 public interface ProductService {
 	PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO);
+
+	Long register(ProductDTO productDTO);
 }

@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class ProductServiceImple implements ProductService{
+public class ProductServiceImpl implements ProductService{
 
 	private final ProductRepository productRepository;
 	@Override
@@ -64,4 +64,42 @@ public class ProductServiceImple implements ProductService{
 			.pageRequestDTO(pageRequestDTO)
 			.build();
 	}
+
+	@Override
+	public Long register(ProductDTO productDTO) {
+
+		Product product = dtoToEntity(productDTO);
+
+		log.info("------------------------------");
+		log.info(product);
+		log.info(product.getImageList());
+		log.info("------------------------------");
+
+		Long pno = productRepository.save(product).getPno();
+		return pno;
+	}
+
+	private Product dtoToEntity(ProductDTO productDTO) {
+		Product product = Product.builder()
+			.pno(productDTO.getPno())
+			.pdesc(productDTO.getPdesc())
+			.pname(productDTO.getPname())
+			.price(productDTO.getPrice())
+			.build();
+
+		List<String> uploadFileNames = productDTO.getUploadFileNames(); // 업로드된 파일 이름이 있을거고, 문자열임
+		// 엔티티안에 컬렉션은 새로 만들면 절대 안됩니다.
+
+		if(uploadFileNames == null || uploadFileNames.size() == 0) {
+			return product;
+		}
+
+		uploadFileNames.forEach(fileName -> {
+			product.addImageString(fileName);
+		});
+
+		return product;
+	}
 }
+
+

@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.mallserver.dto.PageRequestDTO;
+import com.example.mallserver.dto.PageResponseDTO;
 import com.example.mallserver.dto.ProductDTO;
+import com.example.mallserver.service.ProductService;
 import com.example.mallserver.util.CustomFileUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,8 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/api/products")
 public class ProductController {
 	private final CustomFileUtil fileUtil; // 생성자 자동 주입
+
+	private final ProductService productService;
 
 	@PostMapping("/")
 	public Map<String, String> register(ProductDTO productDTO) {
@@ -48,5 +53,11 @@ public class ProductController {
 		@PathVariable("fileName") String fileName
 	) {
 		return fileUtil.getFile(fileName);
+	}
+
+	@GetMapping("/list")
+	public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
+
+		return productService.getList(pageRequestDTO);
 	}
 }
