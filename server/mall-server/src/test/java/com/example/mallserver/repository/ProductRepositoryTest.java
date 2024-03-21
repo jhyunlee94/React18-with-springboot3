@@ -1,15 +1,21 @@
 package com.example.mallserver.repository;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mallserver.domain.Product;
+import com.example.mallserver.dto.PageRequestDTO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -23,6 +29,8 @@ public class ProductRepositoryTest {
 	@Test
 	public void testInsert() {
 
+		for (int i = 0; i < 10; i++) {
+
 		Product product = Product.builder()
 			.pname("Test")
 			.pdesc("Test Desc")
@@ -32,6 +40,7 @@ public class ProductRepositoryTest {
 		product.addImageString(UUID.randomUUID()+"_"+"IMAGE1.jpg");
 		product.addImageString(UUID.randomUUID()+"_"+"IMAGE2.jpg");
 		productRepository.save(product);
+		}
 	}
 
 	// @Transactional
@@ -62,8 +71,8 @@ public class ProductRepositoryTest {
 	}
 
 	@Test
-	@Commit
-	@Transactional
+	// @Commit
+	// @Transactional
 	public void testUpdate() {
 		Product product = productRepository.selectOne(1L).get();
 
@@ -76,4 +85,16 @@ public class ProductRepositoryTest {
 		productRepository.save(product);
 	}
 
+	@Test
+	public void testList() {
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("pno").descending());
+		Page<Object[]> result = productRepository.selectList(pageable);
+		result.getContent().forEach((arr) -> log.info(Arrays.toString(arr)));
+	}
+
+	@Test
+	public void testSearch() {
+		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
+		productRepository.searchList(pageRequestDTO);
+	}
 }
