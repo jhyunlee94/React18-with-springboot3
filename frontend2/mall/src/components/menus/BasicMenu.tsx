@@ -15,6 +15,9 @@ export default function BasicMenu() {
           <li>
             <Link to={'/todo/'}>Todo</Link>
           </li>
+          <li>
+            <Link to={'/products/'}>Products</Link>
+          </li>
         </ul>
       </div>
       <div className={style.loginContainer}>

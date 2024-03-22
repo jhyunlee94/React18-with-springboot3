@@ -3,13 +3,18 @@ import ResultModal from '@/common/ResultModal';
 import useCustomMove from '@/hooks/useCustomMove';
 import { ChangeEventHandler, useEffect, useState } from 'react';
 
-const initState = {
+type MyObject = {
+  [key: string]: any;
+};
+
+const initState: MyObject = {
   tno: 0,
   title: '',
   content: '',
   dueDate: '',
   complete: false,
 };
+
 export default function ModifyComponent({ tno }: any) {
   const [todo, setTodo] = useState(initState);
   const [result, setResult] = useState('');
