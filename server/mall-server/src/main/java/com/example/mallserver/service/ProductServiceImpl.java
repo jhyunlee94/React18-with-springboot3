@@ -117,6 +117,12 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.save(product);
 	}
 
+	@Override
+	public void remove(Long pno) {
+		// 원래는 flag 값 변경해주는거임 삭제하면 안됨 아래는 그냥 해보는 예시임
+		productRepository.deleteById(pno);
+	}
+
 	private ProductDTO entityToDTO(Product product) {
 		ProductDTO productDTO = ProductDTO.builder()
 			.pno(product.getPno())
