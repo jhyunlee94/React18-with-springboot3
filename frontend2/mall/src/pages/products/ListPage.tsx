@@ -1,3 +1,4 @@
+import ListComponent from '@components/products/ListComponent';
 import React from 'react';
 
 const ListPage = () => {
@@ -6,6 +7,7 @@ const ListPage = () => {
       <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
         Products List Page
       </div>
+      <ListComponent />
     </div>
   );
 };
