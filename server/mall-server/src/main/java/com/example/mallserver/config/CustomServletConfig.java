@@ -2,7 +2,6 @@ package com.example.mallserver.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.mallserver.formatter.LocalDateFormatter;
@@ -25,11 +24,11 @@ public class CustomServletConfig implements WebMvcConfigurer {
 		registry.addFormatter(new LocalDateFormatter());
 	}
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**") // 모든 곳
-			.maxAge(500)
-			.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS") // OPTIONS = 미리한번 찔러볼때
-			.allowedOrigins("*");
-	}
+	// @Override
+	// public void addCorsMappings(CorsRegistry registry) {
+	// 	registry.addMapping("/**") // 모든 곳
+	// 		.maxAge(500)
+	// 		.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS") // OPTIONS = 미리한번 찔러볼때
+	// 		.allowedOrigins("*");
+	// }
 }
