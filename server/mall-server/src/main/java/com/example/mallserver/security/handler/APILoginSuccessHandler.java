@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.example.mallserver.dto.MemberDTO;
+import com.example.mallserver.util.JWTUtil;
 import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
@@ -29,8 +30,11 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		Map<String, Object> claims = memberDTO.getClaims();
 
-		claims.put("accessToken", "");
-		claims.put("refreshToken", "");
+		String accessToken = JWTUtil.generateToken(claims, 10); // 10분임
+		String refreshToken = JWTUtil.generateToken(claims, 60 * 24);
+
+		claims.put("accessToken", accessToken);
+		claims.put("refreshToken", refreshToken);
 
 		Gson gson = new Gson();
 
@@ -38,6 +42,8 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		response.setContentType("application/json; charset=UTF-8");
 
+		// 만약 실제로 이렇게하면 안되는게
+		// 패스워드나 그런게 다 보이는 상황 고려해주세요.
 		PrintWriter printWriter = response.getWriter();
 		printWriter.println(jsonStr);
 		printWriter.close();
