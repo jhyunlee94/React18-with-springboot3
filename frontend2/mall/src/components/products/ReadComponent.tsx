@@ -18,7 +18,7 @@ export default function ReadComponent({ pno }: any) {
   const [product, setProduct] = useState(initState);
   const [fetching, setFetching] = useState(false);
 
-  const { moveToModify, moveToList } = useCustomMove();
+  const { moveToModify, moveToList, page, size } = useCustomMove();
 
   useEffect(() => {
     setFetching(true);
@@ -224,7 +224,7 @@ export default function ReadComponent({ pno }: any) {
             backgroundColor: 'blue',
             width: '80px',
           }}
-          onClick={moveToList}
+          onClick={() => moveToList({ page, size })}
         >
           List
         </button>

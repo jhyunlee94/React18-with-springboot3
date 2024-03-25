@@ -32,3 +32,20 @@ export const getOne = async (pno: any) => {
 
   return res.data;
 };
+
+export const deleteOne = async (pno: any) => {
+  const res = await axios.delete(`${host}/${pno}`);
+  return res.data;
+};
+
+export const putOne = async (pno: any, product: any) => {
+  const header = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  const res = await axios.put(`${host}/${pno}`, product, header);
+
+  return res.data;
+};
