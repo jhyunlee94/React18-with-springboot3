@@ -4,16 +4,19 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.mallserver.security.filter.JWTCheckFilter;
 import com.example.mallserver.security.handler.APILoginFailHandler;
 import com.example.mallserver.security.handler.APILoginSuccessHandler;
 
@@ -23,6 +26,7 @@ import lombok.extern.log4j.Log4j2;
 @Configuration
 @Log4j2
 @RequiredArgsConstructor
+@EnableMethodSecurity // session 임 예전에는 Global~~ 임
 public class CustomSecurityConfig {
 	// spring 3.1 넘어가면서 굉장히 많이 바뀝니다.
 
@@ -51,6 +55,9 @@ public class CustomSecurityConfig {
 		http.sessionManagement(httpSecuritySessionManagementConfigurer -> {
 			httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.NEVER);
 		});
+
+		// 필터 미리 동작 시키는거
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
