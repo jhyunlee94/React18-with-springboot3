@@ -19,6 +19,7 @@ const initState: MyObject = {
 const AddComponent = () => {
   const [product, setProduct] = useState(initState);
   const uploadRef = useRef<HTMLInputElement>(null);
+  // const uploadRef = useRef(null);
 
   const [fetching, setFetching] = useState(false);
   const [result, setResult] = useState(null);
@@ -35,8 +36,6 @@ const AddComponent = () => {
 
     const formData = new FormData();
 
-    if (uploadRef.current) {
-    }
     const files = uploadRef.current?.files!;
     for (let i = 0; i < files.length; i++) {
       // console.log('i', i);

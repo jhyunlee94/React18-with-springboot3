@@ -1,6 +1,8 @@
-import { getOne } from '@/api/ProductApi';
+import { deleteOne, getOne, putOne } from '@/api/ProductApi';
 import { API_SERVER_HOST } from '@/api/TodoApi';
 import FetchingModal from '@/common/FetchingModal';
+import ResultModal from '@/common/ResultModal';
+import useCustomMove from '@/hooks/useCustomMove';
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 
 type MyObject = {
@@ -21,6 +23,9 @@ const host = API_SERVER_HOST;
 export default function ModifyComponent({ pno }: any) {
   const [product, setProduct] = useState(initState);
   const [fetching, setFetching] = useState(false);
+  const [result, setResult] = useState('');
+  const { moveToList, moveToRead, page, size } = useCustomMove();
+
   const uploadRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -45,6 +50,49 @@ export default function ModifyComponent({ pno }: any) {
     setProduct({ ...product });
   };
 
+  const handleClickModify = () => {
+    const files = uploadRef.current?.files!;
+
+    const formData = new FormData();
+
+    for (let i = 0; i < files?.length; i++) {
+      formData.append('files', files[i]);
+    }
+
+    formData.append('pname', product.pname);
+    formData.append('pdesc', product.pdesc);
+    formData.append('price', product.price);
+    formData.append('delFlag', product.delFlag);
+
+    for (let i = 0; i < product.uploadFileNames.length; i++) {
+      formData.append('uploadFileNames', product.uploadFileNames[i]);
+    }
+
+    setFetching(true);
+    putOne(pno, formData).then((data) => {
+      setResult('modified');
+      setFetching(false);
+    });
+  };
+
+  const handleClickDelete = () => {
+    setFetching(true);
+    deleteOne(pno).then((data) => {
+      setResult('Deleted');
+      setFetching(false);
+    });
+  };
+
+  const closeModal = () => {
+    if (result === 'modified') {
+      moveToRead(pno);
+    }
+    if (result === 'Deleted') {
+      moveToList({ page: 1 });
+    }
+
+    setResult('');
+  };
   return (
     <div
       style={{
@@ -56,6 +104,13 @@ export default function ModifyComponent({ pno }: any) {
     >
       Product Modify Component
       {fetching && <FetchingModal />}
+      {result && (
+        <ResultModal
+          title={`${result}`}
+          content={`처리되었습니다.`}
+          callbackFn={closeModal}
+        />
+      )}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div
           style={{
@@ -221,6 +276,53 @@ export default function ModifyComponent({ pno }: any) {
             ))}
           </div>
         </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'end', padding: '10px' }}>
+        <button
+          type="button"
+          style={{
+            borderRadius: '24px',
+            border: 'none',
+            padding: '10px',
+            margin: '10px',
+            fontSize: '16px',
+            color: 'white',
+            backgroundColor: 'red',
+          }}
+          onClick={handleClickDelete}
+        >
+          Delete
+        </button>
+        <button
+          type="button"
+          style={{
+            borderRadius: '24px',
+            border: 'none',
+            padding: '10px',
+            margin: '10px',
+            fontSize: '16px',
+            color: 'white',
+            backgroundColor: 'orange',
+          }}
+          onClick={handleClickModify}
+        >
+          Modify
+        </button>
+        <button
+          type="button"
+          style={{
+            borderRadius: '24px',
+            border: 'none',
+            padding: '10px',
+            margin: '10px',
+            fontSize: '16px',
+            color: 'white',
+            backgroundColor: 'blue',
+          }}
+          onClick={() => moveToList()}
+        >
+          List
+        </button>
       </div>
     </div>
   );
