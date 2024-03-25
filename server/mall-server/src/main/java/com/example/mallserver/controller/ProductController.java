@@ -88,7 +88,7 @@ public class ProductController {
 		return Map.of("RESULT", pno);
 	}
 
-	@GetMapping("/{pno}")
+	@GetMapping("/read/{pno}")
 	public ProductDTO read(@PathVariable("pno") Long pno) {
 		return productService.get(pno);
 	}
