@@ -36,6 +36,11 @@ public class CustomSecurityConfig {
 		// 	httpSecurityCsrfConfigurer.disable();
 		// });
 
+		// 잠깐 쓰는거임
+		http.formLogin(httpSecurityFormLoginConfigurer -> {
+			httpSecurityFormLoginConfigurer.loginPage("/api/member/login");
+		});
+
 		return http.build();
 	}
 
