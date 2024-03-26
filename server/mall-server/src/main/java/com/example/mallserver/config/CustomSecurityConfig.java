@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.example.mallserver.security.filter.JWTCheckFilter;
 import com.example.mallserver.security.handler.APILoginFailHandler;
 import com.example.mallserver.security.handler.APILoginSuccessHandler;
+import com.example.mallserver.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -58,6 +59,12 @@ public class CustomSecurityConfig {
 
 		// 필터 미리 동작 시키는거
 		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+
+		// exception handler
+		http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+		{
+			httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
 
 		return http.build();
 	}
