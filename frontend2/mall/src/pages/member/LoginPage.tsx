@@ -1,3 +1,4 @@
+import LoginComponent from '@components/member/LoginComponent';
 import BasicMenu from '@components/menus/BasicMenu';
 
 export default function LoginPage() {
@@ -26,7 +27,9 @@ export default function LoginPage() {
           border: '1px solid black',
         }}
       >
-        <div style={{ fontSize: '24px' }}>Login Page</div>
+        <div>
+          <LoginComponent />
+        </div>
       </div>
     </div>
   );

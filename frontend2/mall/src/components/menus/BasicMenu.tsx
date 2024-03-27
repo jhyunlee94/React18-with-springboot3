@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 export default function BasicMenu() {
   const loginState = useSelector((state: any) => state.loginSlice);
-  console.log('loginState....' + JSON.stringify(loginState));
+  // console.log('loginState....' + JSON.stringify(loginState));
   return (
     <nav className={style.navContainer}>
       <div className={style.menuContainer}>
