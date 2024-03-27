@@ -9,6 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.mallserver.util.CustomJWTException;
+
 @RestControllerAdvice
 public class CustomControllerAdvice {
 	// 공통으로 쓸려고 그리고 exception handler 만들어 줄려고 씁니다.
@@ -23,5 +25,12 @@ public class CustomControllerAdvice {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> notExist(MethodArgumentNotValidException e) {
 		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(Map.of("msg", e.getMessage()));
+	}
+
+	@ExceptionHandler(CustomJWTException.class)
+	public ResponseEntity<?> handleJWTException(CustomJWTException e) {
+		String msg = e.getMessage();
+
+		return ResponseEntity.ok().body(Map.of("error", msg));
 	}
 }
