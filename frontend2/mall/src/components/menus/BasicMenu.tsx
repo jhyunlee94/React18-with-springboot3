@@ -31,9 +31,15 @@ export default function BasicMenu() {
         </ul>
       </div>
       <div className={style.loginContainer}>
-        <div className={style.login}>
-          <Link to={'/member/login'}>Login</Link>
-        </div>
+        {!loginState.email ? (
+          <div className={style.login}>
+            <Link to={'/member/login'}>Login</Link>
+          </div>
+        ) : (
+          <div className={style.login}>
+            <Link to={'/member/logout'}>Logout</Link>
+          </div>
+        )}
       </div>
     </nav>
   );
