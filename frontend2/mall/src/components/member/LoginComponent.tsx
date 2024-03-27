@@ -1,4 +1,4 @@
-import { login } from '@/slices/loginSlice';
+import { login, loginPostAsync } from '@/slices/loginSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -22,7 +22,8 @@ export default function LoginComponent() {
   };
 
   const handleClickLogin = (e: any) => {
-    dispatch(login(loginParam));
+    // dispatch(login(loginParam));
+    dispatch(loginPostAsync(loginParam));
   };
 
   return (
